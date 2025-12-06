@@ -1,0 +1,27 @@
+digraph ER {
+  rankdir=LR;
+  node [shape=record, fontname=Helvetica];
+  roles [label="{roles|role_id PK:int\lrole_name:varchar\l}"];
+  users [label="{users|user_id PK:int\lfull_name:varchar\lemail:varchar\lpassword_hash:varchar\lrole_id FK:int\l}"];
+  addresses [label="{addresses|address_id PK:int\luser_id FK:int\lline1:varchar\lcity:varchar\l}"];
+  categories [label="{categories|category_id PK:int\lcategory_name:varchar\l}"];
+  products [label="{products|product_id PK:int\lcategory_id FK:int\lproduct_name:varchar\lprice:decimal\lstock:int\l}"];
+  product_images [label="{product_images|image_id PK:int\lproduct_id FK:int\limage_url:varchar\l}"];
+  cart [label="{cart|cart_id PK:int\luser_id FK:int\l}"];
+  cart_items [label="{cart_items|cart_item_id PK:int\lcart_id FK:int\lproduct_id FK:int\lquantity:int\l}"];
+  orders [label="{orders|order_id PK:int\luser_id FK:int\laddress_id FK:int\ltotal_amount:decimal\lstatus:varchar\l}"];
+  order_items [label="{order_items|order_item_id PK:int\lorder_id FK:int\lproduct_id FK:int\lquantity:int\lprice_at_purchase:decimal\l}"];
+  payments [label="{payments|payment_id PK:int\lorder_id FK:int\lamount:decimal\lmethod:varchar\lpayment_status:varchar\l}"];
+
+  roles -> users;
+  users -> addresses;
+  categories -> products;
+  products -> product_images;
+  users -> cart;
+  cart -> cart_items;
+  products -> cart_items;
+  users -> orders;
+  orders -> order_items;
+  products -> order_items;
+  orders -> payments;
+}
